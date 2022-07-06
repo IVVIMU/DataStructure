@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 #define MaxSize 50
-typedef struct {
+typedef struct SqList{
     int data[MaxSize] = {2,3,1,4,5};
     int Length = 5;
 }SqList;

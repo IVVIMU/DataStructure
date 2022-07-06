@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #define MaxSize 50
-typedef struct {
+typedef struct SqList {
     int data[MaxSize] = {1,2,3,4,5,6};
     int Length = 6;
 }SqList;
@@ -31,5 +31,5 @@ int main() {
     for (int i = 0; i < L.Length; i++) {
         printf("%d ", L.data[i]);
     }
-
+    return 0;
 }

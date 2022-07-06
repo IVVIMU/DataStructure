@@ -50,4 +50,5 @@ int main() {
     for (int i = 0; i < L.Length; i++) {
         printf("%d ", L.data[i]);
     }
+    return 0;
 }
