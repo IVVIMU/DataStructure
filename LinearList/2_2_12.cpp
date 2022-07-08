@@ -49,5 +49,5 @@ int main() {
     int majority;
     majority = Majority(L);
     printf("%d", majority);
-
+    return 0;
 }

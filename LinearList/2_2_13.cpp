@@ -43,4 +43,5 @@ int main() {
     SqList L = {{2,3,4,6,7},5};
     int MinPos = findMinPositive(L);
     printf("%d", MinPos);
+    return 0;
 }

@@ -101,4 +101,5 @@ int main() {
     SearchMedium(L1, L2, medium);
     //M_Search(L1, L2, medium);
     printf("%d", medium);
+    return 0;
 }
