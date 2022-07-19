@@ -24,7 +24,7 @@ bool StackEmpty(SqStack S) {
 //新元素入栈
 bool Push(SqStack &S, int x) {
     //栈满
-    if (S.top = MaxSize - 1)
+    if (S.top == MaxSize - 1)
         return false;
     //S.data[++S.top] = x;
     S.top = S.top + 1;
