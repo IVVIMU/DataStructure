@@ -56,6 +56,7 @@ void printQueue(SqQueue Q) {
         printf("%d ", Q.data[Q.front]);
         Q.front = (Q.front + 1) % MaxSize;
     }
+    printf("\n");
 }
 
 typedef struct SqStack {
@@ -98,6 +99,14 @@ bool Pop(SqStack &S, int &x) {
     return true;
 }
 
+void printStack(SqStack S) {
+    while (!StackEmpty(S)) {
+        printf("%d ", S.data[S.top]);
+        S.top--;
+    }
+    printf("\n");
+}
+
 void Inverse(SqQueue &Q, SqStack &S) {
     int x;
     while (!(QueueEmpty(Q))) {
@@ -121,7 +130,6 @@ int main() {
     }
     printQueue(Q);
     Inverse(Q, S);
-    printf("\n");
     printQueue(Q);
     return 0;
 }

@@ -66,27 +66,42 @@ void printStack(SqStack S) {
     printf("\n");
 }
 
-bool EnQueue(SqStack &S1, int x) {
-    if (StackOverflow(S1))
+bool EnQueue(SqStack &S1, SqStack &S2, int x) {
+    if (!StackOverflow(S1)) {
+        Push(S1, x);
+        return true;
+    }
+    if (StackOverflow(S1) && !StackEmpty(S2)) {
+        printf("队列已满！");
         return false;
-    S1.top = S1.top + 1;
-    S1.data[S1.top] = x;
+    }
+    int temp;
+    //S1满，S2为空时，将元素移到S2，元素保持队列形式
+    if (StackOverflow(S1) && StackEmpty(S2)) {
+        while (!StackEmpty(S1)) {
+            Pop(S1, temp);
+            Push(S2, temp);
+        }
+    }
+    Push(S1, x);
     return true;
 }
 
 bool DeQueue(SqStack &S1, SqStack &S2, int &x) {
-    int temp;
-    while (!StackEmpty(S1)) {
-        Pop(S1, temp);
-        Push(S2, temp);
+    if (!StackEmpty(S2)) {
+        Pop(S1, x);
     }
-
+    else if (StackEmpty(S1)) {
+        printf("队列为空！");
+    }
+    else {
+        int temp;
+        while (!StackEmpty(S1)) {
+            Pop(S1, temp);
+            Push(S2, temp);
+        }
+    }
     Pop(S2, x);
-
-    while (!StackEmpty(S2)) {
-        Pop(S2, temp);
-        Push(S1, temp);
-    }
 }
 
 bool QueueEmpty(SqStack S1, SqStack S2) {
@@ -102,13 +117,13 @@ int main() {
     int x;
     InitStack(S1);
     InitStack(S2);
-    for (int i = 0; i < 1; i++) {
-        EnQueue(S1, i + 1);
+    for (int i = 0; i < MaxSize; i++) {
+        EnQueue(S1, S2, i + 1);
     }
     printStack(S1);
     DeQueue(S1, S2, x);
     printf("%d \n", x);
-    printStack(S1);
+    printStack(S2);
     if (QueueEmpty(S1, S2))
         printf("已空！");
     else
