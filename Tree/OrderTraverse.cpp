@@ -43,11 +43,11 @@ void PreOrderTraverse(BiTree T) {
 }
 
 //中序遍历
-void MidOrderTraverse(BiTree T) {
+void InOrderTraverse(BiTree T) {
     if(T) {
-        MidOrderTraverse(T->lchild);
+        InOrderTraverse(T->lchild);
         displayElem(T);
-        MidOrderTraverse(T->rchild);
+        InOrderTraverse(T->rchild);
     }
     //如果结点为空，返回上一层
     return;
@@ -72,7 +72,7 @@ int main() {
     PreOrderTraverse(T);
 
     printf("\n中序遍历: ");
-    MidOrderTraverse(T);
+    InOrderTraverse(T);
 
     printf("\n后序遍历: ");
     PostOrderTraverse(T);
