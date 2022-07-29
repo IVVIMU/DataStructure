@@ -33,33 +33,76 @@ void displayElem(BiTNode* elem){
 
 #define MaxSize 100
 
-typedef struct SqQueue {
-    struct BiTNode* numQ[MaxSize];
-    int front, rear;
-} SqQueue;
+// typedef struct SqQueue {
+//     struct BiTNode* numQ[MaxSize];
+//     int front, rear;
+// } SqQueue;
 
-void InitQueue(SqQueue &Q) {
-    Q.front = 0;
-    Q.rear = 0;
+// void InitQueue(SqQueue &Q) {
+//     Q.front = 0;
+//     Q.rear = 0;
+// }
+
+// void EnQueue(SqQueue &Q, BiTNode *node) {
+//     Q.numQ[++Q.rear] = node;
+// }
+
+// BiTNode * DeQueue(SqQueue &Q) {
+//     return Q.numQ[++Q.front];
+// }
+
+// bool QueueEmpty(SqQueue Q) {
+//     if (Q.rear == Q.front)
+//         return true;
+//     else
+//         return false;
+// }
+
+//链式队列结点
+typedef struct LinkBiTNode {
+    BiTNode *node;
+    struct LinkBiTNode *next;
+} LinkBiTNode;
+
+typedef struct LinkQueue {
+    LinkBiTNode *front, *rear;
+} LinkQueue;
+
+void InitQueue(LinkQueue &Q) {
+    //初始时 front、rear 都指向头结点
+    Q.front = Q.rear = (LinkBiTNode *) malloc(sizeof(LinkBiTNode));
+    Q.front->next = NULL;
 }
 
-void EnQueue(SqQueue &Q, BiTNode *node) {
-    Q.numQ[++Q.rear] = node;
-}
-
-BiTNode * DeQueue(SqQueue &Q) {
-    return Q.numQ[++Q.front];
-}
-
-bool QueueEmpty(SqQueue Q) {
-    if (Q.rear == Q.front)
+bool QueueEmpty(LinkQueue Q) {
+    if (Q.front == Q.rear)
         return true;
     else
         return false;
 }
 
+void EnQueue(LinkQueue &Q, BiTNode *p) {
+    LinkBiTNode *s = (LinkBiTNode *) malloc(sizeof(LinkBiTNode));
+    s->node = p;
+    s->next = NULL;
+    Q.rear->next = s;
+    Q.rear = s;
+}   
+
+BiTNode * DeQueue(LinkQueue &Q) {
+    if (Q.front == Q.rear)
+        return NULL;
+    LinkBiTNode *temp = Q.front->next;
+    Q.front->next = temp->next;
+    //如果是最后一个结点出队
+    if (Q.rear == temp)
+        Q.rear = Q.front;
+    return temp->node;
+}
+
 void LevelOrderTraverse(BiTree T) {
-    SqQueue Q;
+    //SqQueue Q;
+    LinkQueue Q;
     InitQueue(Q);
     BiTNode *p;
     EnQueue(Q, T);
