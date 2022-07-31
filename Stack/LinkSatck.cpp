@@ -22,7 +22,7 @@ bool InitStack(LinkStack &S) {
 } 
 
 //判断题是否为空（不带头结点）
-bool Empty(LinkStack S) {
+bool IsEmpty(LinkStack S) {
     if (S == NULL)
         return true;
     else 
