@@ -12,7 +12,7 @@ typedef struct LNode {
     struct LNode *next;
 } LNode, *LinkStack;
 
-bool InitList(LinkStack &S) {
+bool InitStack(LinkStack &S) {
     S = (LNode *) malloc(sizeof(LNode));
     //内存不足，分配失败
     if (S == NULL)
@@ -64,7 +64,7 @@ bool GetTop(LinkStack S, int &x) {
 
 int main() {
     LinkStack S;
-    InitList(S);
+    InitStack(S);
     LNode *temp;
     int x;
     for (int i = 0; i < 10; i++) {

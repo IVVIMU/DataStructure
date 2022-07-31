@@ -13,7 +13,7 @@ typedef struct LNode {
     struct LNode *next;
 } LNode, *LinkStack;
 
-bool InitList(LinkStack &S) {
+bool InitStack(LinkStack &S) {
     S = (LNode *) malloc(sizeof(LNode));
     //内存不足，分配失败
     if (S == NULL)
