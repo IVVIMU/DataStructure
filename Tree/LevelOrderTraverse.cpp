@@ -97,7 +97,9 @@ BiTNode * DeQueue(LinkQueue &Q) {
     //如果是最后一个结点出队
     if (Q.rear == temp)
         Q.rear = Q.front;
-    return temp->node;
+    BiTNode *tnode = temp->node;
+    free(temp);
+    return tnode;
 }
 
 void LevelOrderTraverse(BiTree T) {
