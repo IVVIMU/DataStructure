@@ -21,9 +21,9 @@ bool InitStack(LinkStack &S) {
     return true;
 } 
 
-//判断题是否为空（不带头结点）
-bool IsEmpty(LinkStack S) {
-    if (S == NULL)
+//判断栈是否为空
+bool StackEmpty(LinkStack S) {
+    if (S->next == NULL)
         return true;
     else 
         return false;

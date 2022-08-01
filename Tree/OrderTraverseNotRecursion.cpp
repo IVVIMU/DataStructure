@@ -24,7 +24,7 @@ void CreateBiTree(BiTree &T) {
     } else{
         //生成根节点
         T = (BiTNode *) malloc(sizeof(BiTNode));
-        T->data = ch;   
+        T->data = ch;
         CreateBiTree(T->lchild);  //递归创建左子树
         CreateBiTree(T->rchild);  //递归创建右子树
     }
@@ -45,9 +45,9 @@ bool InitStack(LinkStack &S) {
     return true;
 } 
 
-//判断题是否为空（不带头结点）
-bool IsEmpty(LinkStack S) {
-    if (S == NULL)
+//判断栈是否为空
+bool StackEmpty(LinkStack S) {
+    if (S->next == NULL)
         return true;
     else 
         return false;
@@ -73,7 +73,9 @@ BiTNode * Pop(LinkStack &S) {
     LNode *temp;
     temp = S;
     S = temp->next;
-    return temp->data;
+    BiTNode *tnode = temp->data;
+    free(temp);
+    return tnode;
 }
 
 BiTNode * GetTop(LinkStack S) {
@@ -88,7 +90,7 @@ void PreOrderTraverse(BiTree T) {
     LinkStack S;
     InitStack(S);
     BiTNode *p = T;
-    while (p || !IsEmpty(S)) {
+    while (p || !StackEmpty(S)) {
         //一路向左
         if (p) {
             visit(p);
@@ -106,7 +108,7 @@ void InOrderTraverse(BiTree T) {
     LinkStack S;
     InitStack(S);
     BiTNode *p = T;
-    while (p || !IsEmpty(S)) {
+    while (p || !StackEmpty(S)) {
         //一路向左
         if (p) {
             Push(S, p);
@@ -125,7 +127,7 @@ void PostOrderTraverse(BiTree T) {
     InitStack(S);
     BiTNode *p = T;
     BiTNode *r = NULL;
-    while (p || !IsEmpty(S)) {
+    while (p || !StackEmpty(S)) {
         //走到最左边
         if (p) {
             Push(S, p);
