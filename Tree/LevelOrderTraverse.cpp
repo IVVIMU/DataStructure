@@ -27,8 +27,8 @@ void CreateBiTree(BiTree &T) {
 }
 
 //模拟操作结点元素的函数，输出结点本身的数值
-void displayElem(BiTNode* elem){
-    printf("%d ",elem->data);
+void visit(BiTNode *node){
+    printf("%d ",node->data);
 }
 
 // #define MaxSize 100
@@ -110,7 +110,7 @@ void LevelOrderTraverse(BiTree T) {
     EnQueue(Q, T);
     while (!QueueEmpty(Q)) {
         p = DeQueue(Q);
-        displayElem(p);
+        visit(p);
         if (p->lchild != NULL) 
             EnQueue(Q, p->lchild);
         if (p->rchild != NULL)
