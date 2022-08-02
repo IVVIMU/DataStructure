@@ -12,6 +12,7 @@ typedef struct LNode {
     struct LNode *next;
 } LNode, *LinkStack;
 
+//初始化(带头结点)
 bool InitStack(LinkStack &S) {
     S = (LNode *) malloc(sizeof(LNode));
     //内存不足，分配失败
@@ -21,7 +22,7 @@ bool InitStack(LinkStack &S) {
     return true;
 } 
 
-//判断栈是否为空
+//判断栈是否为空(带头结点)
 bool StackEmpty(LinkStack S) {
     if (S->next == NULL)
         return true;
@@ -29,36 +30,31 @@ bool StackEmpty(LinkStack S) {
         return false;
 }
 
-//入栈
+//入栈(带头结点)
 void Push(LinkStack &S, int x) {
     LNode *node = (LNode *) malloc(sizeof(LNode));
     node->data = x;
-    if (S == NULL) {
-        S  = node;
-    }
-    else {
-        node->next = S;
-        S = node;
-    }
+    node->next = S->next;
+    S->next = node;
 }
 
-//出栈
+//出栈(带头结点)
 bool Pop(LinkStack &S, int &x) {
-    if (S == NULL) 
+    if (S->next == NULL) 
         return false;
     LNode *temp;
-    temp = S;
+    temp = S->next;
     x = temp->data;
-    S = temp->next;
+    S->next = temp->next;
     free(temp);
     return true;
 }
 
-//读栈顶元素
+//读栈顶元素(带头结点)
 bool GetTop(LinkStack S, int &x) {
-    if (S == NULL)
+    if (S->next == NULL)
         return false;
-    x = S->data;
+    x = S->next->data;
     return true;
 }
 
@@ -71,23 +67,25 @@ int main() {
         printf("%d ", i + 1);
         Push(S, i + 1);
     }
-    printf("\n");
-    // while (S->next) {
-    //     Pop(S, x);
-    //     printf("%d ", x);
-    // }
-    while (S->next != NULL) {
-        temp = S;
-        S = S->next;
-        printf("弹栈元素：%d ", temp->data);
-        if (S->next != NULL) {
-            printf("栈顶元素：%d\n", S->data);
-        }
-        else {
-            printf("栈已空\n");
-        }
-        free(temp);
+    GetTop(S, x);
+    printf("\n%d\n", x);
+    while (S->next) {
+        Pop(S, x);
+        printf("%d ", x);
     }
-    printf("栈内没有元素");
+    // S = S->next;  //跳过头结点
+    // while (S->next) {
+    //     temp = S;
+    //     S = S->next;
+    //     printf("弹栈元素：%d ", temp->data);
+    //     if (S) {
+    //         printf("栈顶元素：%d\n", S->data);
+    //     }
+    //     else {
+    //         printf("栈已空\n");
+    //     }
+    //     free(temp);
+    // }
+    // printf("栈内没有元素");
     return 0;
 }

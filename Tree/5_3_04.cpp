@@ -58,13 +58,8 @@ bool StackEmpty(LinkStack S) {
 void Push(LinkStack &S, BiTNode *x) {
     LNode *node = (LNode *) malloc(sizeof(LNode));
     node->data = x;
-    if (S == NULL) {
-        S  = node;
-    }
-    else {
-        node->next = S;
-        S = node;
-    }
+    node->next = S;
+    S = node;
 }
 
 //出栈

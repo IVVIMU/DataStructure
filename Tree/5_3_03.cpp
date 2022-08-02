@@ -45,9 +45,9 @@ bool InitStack(LinkStack &S) {
     return true;
 } 
 
-//判断题是否为空（不带头结点）
-bool IsEmpty(LinkStack S) {
-    if (S == NULL)
+//判断栈是否为空
+bool StackEmpty(LinkStack S) {
+    if (S->next == NULL)
         return true;
     else 
         return false;
@@ -57,13 +57,8 @@ bool IsEmpty(LinkStack S) {
 void Push(LinkStack &S, BiTNode *x) {
     LNode *node = (LNode *) malloc(sizeof(LNode));
     node->data = x;
-    if (S == NULL) {
-        S  = node;
-    }
-    else {
-        node->next = S;
-        S = node;
-    }
+    node->next = S;
+    S = node;
 }
 
 //出栈
@@ -73,7 +68,9 @@ BiTNode * Pop(LinkStack &S) {
     LNode *temp;
     temp = S;
     S = temp->next;
-    return temp->data;
+    BiTNode *tnode = temp->data;
+    free(temp);
+    return tnode;
 }
 
 BiTNode * GetTop(LinkStack S) {
@@ -89,7 +86,7 @@ void PostOrderTraverse(BiTree T) {
     InitStack(S);
     BiTNode *p = T;
     BiTNode *r = NULL;
-    while (p || !IsEmpty(S)) {
+    while (p || !StackEmpty(S)) {
         //走到最左边
         if (p) {
             Push(S, p);
