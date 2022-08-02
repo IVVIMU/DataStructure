@@ -37,6 +37,7 @@ typedef struct LNode {
     struct LNode *next;
 } LNode, *LinkStack;
 
+//初始化(带头结点)
 bool InitStack(LinkStack &S) {
     S = (LNode *) malloc(sizeof(LNode));
     //内存不足，分配失败
@@ -46,7 +47,7 @@ bool InitStack(LinkStack &S) {
     return true;
 } 
 
-//判断栈是否为空
+//判断栈是否为空(带头结点)
 bool StackEmpty(LinkStack S) {
     if (S->next == NULL)
         return true;
@@ -54,28 +55,28 @@ bool StackEmpty(LinkStack S) {
         return false;
 }
 
-//入栈
+//入栈(带头结点)
 void Push(LinkStack &S, BiTNode *x) {
     LNode *node = (LNode *) malloc(sizeof(LNode));
     node->data = x;
-    node->next = S;
-    S = node;
+    node->next = S->next;
+    S->next = node;
 }
 
-//出栈
+//出栈(带头结点)
 BiTNode * Pop(LinkStack &S) {
-    if (S == NULL) 
+    if (S->next == NULL) 
         return NULL;
     LNode *temp;
-    temp = S;
-    S = temp->next;
+    temp = S->next;
+    S->next = temp->next;
     BiTNode *tnode = temp->data;
     free(temp);
     return tnode;
 }
 
 BiTNode * GetTop(LinkStack S) {
-    return S->data;
+    return S->next->data;
 }
 
 //链式队列结点

@@ -13,6 +13,7 @@ typedef struct LNode {
     struct LNode *next;
 } LNode, *LinkStack;
 
+//初始化(带头结点)
 bool InitStack(LinkStack &S) {
     S = (LNode *) malloc(sizeof(LNode));
     //内存不足，分配失败
@@ -22,36 +23,31 @@ bool InitStack(LinkStack &S) {
     return true;
 }
 
-//入栈
+//入栈(带头结点)
 void Push(LinkStack &S, char x) {
     LNode *node = (LNode *) malloc(sizeof(LNode));
     node->data = x;
-    if (S == NULL) {
-        S  = node;
-    }
-    else {
-        node->next = S;
-        S = node;
-    }
+    node->next = S;
+    S = node;
 }
 
-//出栈
+//出栈(带头结点)
 bool Pop(LinkStack &S, char &x) {
-    if (S == NULL) 
+    if (S->next == NULL) 
         return false;
     LNode *temp;
-    temp = S;
+    temp = S->next;
     x = temp->data;
-    S = temp->next;
+    S->next = temp->next;
     free(temp);
     return true;
 }
 
-//读栈顶元素
+//读栈顶元素(带头结点)
 bool GetTop(LinkStack S, char &x) {
-    if (S == NULL)
+    if (S->next == NULL)
         return false;
-    x = S->data;
+    x = S->next->data;
     return true;
 }
 
