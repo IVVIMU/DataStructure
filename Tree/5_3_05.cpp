@@ -96,13 +96,13 @@ int Depth(BiTree T) {
     oldNum++;
     while (!QueueEmpty(Q)) {
         p = DeQueue(Q);
-        if (p->lchild != NULL) {
-            //下一层节点数+1
+        if (p->lchild) {
+            //下一层结点数+1
             curNum++;
             EnQueue(Q, p->lchild);
         }
-        if (p->rchild != NULL) {
-            //下一层节点数+1
+        if (p->rchild) {
+            //下一层结点数+1
             curNum++;
             EnQueue(Q, p->rchild);
         }
@@ -111,7 +111,7 @@ int Depth(BiTree T) {
             depth++;
             //当oldNum=0时，将下一层的结点数赋给它
             oldNum = curNum;
-            //下一层节点归零
+            //下一层结点归零
             curNum = 0;
         }
     }
