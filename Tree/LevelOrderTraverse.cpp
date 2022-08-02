@@ -31,7 +31,7 @@ void displayElem(BiTNode* elem){
     printf("%d ",elem->data);
 }
 
-#define MaxSize 100
+// #define MaxSize 100
 
 // typedef struct SqQueue {
 //     struct BiTNode* numQ[MaxSize];

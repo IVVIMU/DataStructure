@@ -13,7 +13,7 @@ typedef struct BiTNode{
 void CreateBiTree(BiTree &T) {
     ElemType ch;
     //1 2 4 0 0 5 6 0 0 7 0 0 3 0 0
-    scanf("%d",&ch);
+    scanf("%d", &ch);
     if(ch == 0) {
         //递归结束，建立树
         T = NULL;  
@@ -27,16 +27,16 @@ void CreateBiTree(BiTree &T) {
 }
 
 //模拟操作结点元素的函数，输出结点本身的数值
-void displayElem(BiTNode* elem){
-    printf("%d ",elem->data);
+void visit(BiTNode *node){
+    printf("%d ",node->data);
 }
 
 //先序遍历
 void PreOrderTraverse(BiTree T) {
     if (T) {
-        displayElem(T);//调用操作结点数据的函数方法
-        PreOrderTraverse(T->lchild);//访问该结点的左孩子
-        PreOrderTraverse(T->rchild);//访问该结点的右孩子
+        visit(T);
+        PreOrderTraverse(T->lchild);  //访问该结点的左孩子
+        PreOrderTraverse(T->rchild);  //访问该结点的右孩子
     }
     //如果结点为空，返回上一层
     return;
@@ -46,7 +46,7 @@ void PreOrderTraverse(BiTree T) {
 void InOrderTraverse(BiTree T) {
     if(T) {
         InOrderTraverse(T->lchild);
-        displayElem(T);
+        visit(T);
         InOrderTraverse(T->rchild);
     }
     //如果结点为空，返回上一层
@@ -58,7 +58,7 @@ void PostOrderTraverse(BiTree T) {
     if(T) {
         PostOrderTraverse(T->lchild);
         PostOrderTraverse(T->rchild);
-        displayElem(T);
+        visit(T);
     }
     //如果结点为空，返回上一层
     return;
