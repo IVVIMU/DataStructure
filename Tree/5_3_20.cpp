@@ -16,7 +16,7 @@ typedef struct BiTNode{
 void CreateBiTree(BiTree &T) {
     ElemType ch;
     scanf("%c",&ch);
-    //清空缓冲区
+    //清空缓冲区，输入int型字符时不需要
     getchar();
     if(ch == '#') {
         //递归结束，建立树
