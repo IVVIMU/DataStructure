@@ -16,7 +16,7 @@ typedef struct {
 } AMGraph;
 
 //初始化
-void Init(AMGraph &G) {
+void InitAMG(AMGraph &G) {
     int i, j;
     for (i = 0; i < MaxVertexNum; i++) G.Vex[i] = '\0';
     for (i = 0; i < MaxVertexNum; i++) {
@@ -29,7 +29,7 @@ void Init(AMGraph &G) {
 }
 
 //创建顶点信息，输入示例：ABCDEF#
-void CreateVex(AMGraph& G) {
+void CreateVex(AMGraph &G) {
 	int i = 0, count = 0;
 	printf("输入图的顶点：");
 	VertexType ch= getchar();
@@ -76,18 +76,6 @@ int CountDegree(AMGraph G, VertexType point) {
         if (G.Edge[j][k] == 1) count++;
     }
     return count;
-}
-
-//输出各顶点的连接情况
-void PrintG(AMGraph G) {
-    int i, j;
-    for (i = 0; i < G.vexnum; i++) {
-        for (j = 0; j < G.vexnum; j++) {
-            if (G.Edge[i][j] == 1) 
-                printf("%c->%c		", G.Vex[i], G.Vex[j]);
-        }
-        printf("\n");
-    }
 }
 
 //判断图G是否存在边(x,y)
@@ -251,6 +239,18 @@ int NextNeighbor(AMGraph G, VertexType x, VertexType y) {
     }
 }
 
+//输出各顶点的连接情况
+void PrintG(AMGraph G) {
+    int i, j;
+    for (i = 0; i < G.vexnum; i++) {
+        for (j = 0; j < G.vexnum; j++) {
+            if (G.Edge[i][j] == 1) 
+                printf("%c->%c		", G.Vex[i], G.Vex[j]);
+        }
+        printf("\n");
+    }
+}
+
 //输出邻接矩阵
 void PrintMatrix(AMGraph G) {
     int i, j;
@@ -273,7 +273,7 @@ int main() {
     AMGraph G;
     VertexType Vex[MaxVertexNum];
     EdgeType Edge[MaxVertexNum][MaxVertexNum];
-    Init(G);
+    InitAMG(G);
     CreateVex(G);
     CreateEdge(G);
 

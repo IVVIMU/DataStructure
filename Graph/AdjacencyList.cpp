@@ -29,7 +29,7 @@ typedef struct {
 } ALGraph;                        //ALGraph是以邻接表存储的图类型
 
 //初始化
-void InitG(ALGraph &G) {
+void InitALG(ALGraph &G) {
     for (int i = 0; i < MaxVertexNum; i++) {
         G.adjlist[i].data = '\0';
         G.adjlist[i].first = NULL;
@@ -352,7 +352,7 @@ int main() {
     int i, num;
     ArcNode *p;
 
-    InitG(G);
+    InitALG(G);
     CreateVNode(G);
     printf("\n");
     for (i = 0; i < G.vexnum; i++) {
