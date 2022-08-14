@@ -317,16 +317,16 @@ int main() {
 	printf("无向图G中共有：%d个顶点，%d条边\n", G.vexnum, G.edgenum);
 	PrintMatrix(G);*/
 
-	// printf("\n-----在图G中删除顶点x-----\n");
-	// x = 'C';
-	// printf("删除顶点%c\n", x);
-	// printf("删除成功了吗？(1表示成功, 0表示失败)— %d\n", DeleteVertex(G, x));
-	// printf("输出无向图G中各顶点的连接情况: \n");
-	// PrintG(G);
-	// printf("\n");
-	// Info(G);
-	// printf("\n无向图G中共有: %d个顶点, %d条边\n", G.vexnum, G.edgenum);
-	// PrintMatrix(G);
+	/*printf("\n-----在图G中删除顶点x-----\n");
+	x = 'C';
+	printf("删除顶点%c\n", x);
+	printf("删除成功了吗？(1表示成功, 0表示失败)— %d\n", DeleteVertex(G, x));
+	printf("输出无向图G中各顶点的连接情况: \n");
+	PrintG(G);
+	printf("\n");
+	Info(G);
+	printf("\n无向图G中共有: %d个顶点, %d条边\n", G.vexnum, G.edgenum);
+	PrintMatrix(G);*/
 
 	/*printf("\n-----图G中添加无向边(x, y)-----\n");
 	x = 'E', y = 'F';
@@ -360,3 +360,32 @@ int main() {
 
 	return 0;
 }
+
+/*
+输入图的顶点：ABCDEF#
+输入邻接矩阵信息：
+0 1 1 1 0 0
+1 0 0 0 1 1
+1 0 0 0 1 0
+1 0 0 0 0 1
+0 1 1 0 0 0
+0 1 0 1 0 0
+
+无向图G中共有: 6个顶点, 7条边
+输出邻接矩阵：
+        A       B       C       D       E       F      
+A       0       1       1       1       0       0      
+B       1       0       0       0       1       1      
+C       1       0       0       0       1       0      
+D       1       0       0       0       0       1      
+E       0       1       1       0       0       0      
+F       0       1       0       1       0       0   
+
+输出无向图G中各顶点的连接情况:
+A->B            A->C            A->D
+B->A            B->E            B->F
+C->A            C->E
+D->A            D->F
+E->B            E->C
+F->B            F->D
+*/
