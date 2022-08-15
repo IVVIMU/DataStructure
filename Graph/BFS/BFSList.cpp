@@ -140,7 +140,7 @@ void CountDegree(ALGraph &G) {
         printf("顶点%c的度为: %d\n", G.adjlist[i].data, degree);
     }
     printf("无向图G中所有顶点的度之和为: %d", sumdegree);
-    G.vexnum = sumdegree / 2;
+    G.edgenum = sumdegree / 2;
 }
 
 void PrintG(ALGraph G) {
@@ -324,7 +324,7 @@ int main() {
 顶点G的度为: 2
 无向图G中所有顶点的度之和为: 14
 
-无向图G的顶点数为: 7, 边数为: 0
+无向图G的顶点数为: 7, 边数为: 7
 
 输出广度优先搜索结果: A B E F C G D
 */

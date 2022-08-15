@@ -140,7 +140,7 @@ void CountDegree(ALGraph &G) {
         printf("顶点%c的度为: %d\n", G.adjlist[i].data, degree);
     }
     printf("无向图G中所有顶点的度之和为: %d", sumdegree);
-    G.vexnum = sumdegree / 2;
+    G.edgenum = sumdegree / 2;
 }
 
 void PrintG(ALGraph G) {
@@ -172,6 +172,7 @@ void DFS(ALGraph G, VertexType ch) {
     }
     visit(ch);
     visited[j] = true;  //做已访问标记
+    //检测所有邻接点
     for (i = FirstNeighbor(G, G.adjlist[j].data); i >= 0; i = NextNeighbor(G, G.adjlist[j].data, G.adjlist[i].data)) {
         if (!visited[i])
             DFS(G, G.adjlist[i].data);
@@ -276,7 +277,7 @@ int main() {
 顶点G的度为: 2
 无向图G中所有顶点的度之和为: 14
 
-无向图G的顶点数为: 7, 边数为: 0
+无向图G的顶点数为: 7, 边数为: 7
 
 输出深度优先搜索结果: A B F C D G E
 */
