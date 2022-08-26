@@ -1,11 +1,12 @@
 /* 
-    快速排序
+    快速排序——队列实现
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 #define MaxSize 100
+#define ElemType int
 
 void Input(int a[], int num) {
     int data;
@@ -41,13 +42,36 @@ int Partition(int a[], int low, int high) {
     return low;
 }
 
-//快速排序——递归实现
-void QuickSortRecursion(int a[], int low, int high) {
-    if (low < high) {
-        int pivotpos = Partition(a, low, high);
-        //依次对两个字表进行递归排序
-        QuickSortRecursion(a, low, pivotpos - 1);
-        QuickSortRecursion(a, pivotpos + 1, high);
+//快速排序——队列实现
+void QuickSortQueue(ElemType a[], int num) {
+    int i;
+    int low, high;
+    //队首、队尾指针
+    int front = -1, rear = -1;
+    struct {
+        int low, high;
+    } Qu[MaxSize];
+    //进队
+    rear = (rear + 1) % MaxSize;
+    Qu[rear].low = 0;
+    Qu[rear].high = num - 1;
+    //队不空取出一个子区间进行划分
+    while (front != rear) {
+        //出队
+        front = (front + 1) % MaxSize;
+        low = Qu[front].low;
+        high = Qu[front].high;
+        if (low < high) {
+            int pivotpos = Partition(a, low, high);
+            rear = (rear + 1) % MaxSize;
+            //左区间入队
+            Qu[rear].low = low;
+            Qu[rear].high = pivotpos - 1;
+            rear = (rear + 1) % MaxSize;
+            //右区间入队
+            Qu[rear].low = pivotpos + 1;
+            Qu[rear].high = high;
+        }
     }
 }
 
@@ -57,7 +81,7 @@ int main() {
     printf("输入要创建的数组长度：");
     scanf("%d", &num);
     Input(a, num);
-    QuickSortRecursion(a, 0, num - 1);
+    QuickSortQueue(a, num);
     printf("输出从小到大的排序结果：");
     Print(a, num);
     return 0;
