@@ -1,21 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define ElemType int
+
 typedef struct LNode {
-    int data;
+    ElemType data;
     struct LNode *next;
 } LNode, *LinkList;
 
-//初始化一个空的单链表（不带头结点）
-// bool InitList(LinkList &L) {
-//     L = NULL;
-//     return true;
-// }
-
-//判断单链表是否为空（不带头结点）
-// bool Empty(LinkList L) {
-//     return (L == NULL);
-// }
+/* 
+    单链表实现——带头结点
+*/
 
 //初始化一个空的单链表（带头结点）
 bool InitList(LinkList &L) {
@@ -27,8 +22,8 @@ bool InitList(LinkList &L) {
     return true;
 } 
 
-//判断单链表是否为空（带头结点）、
-bool Empty(LinkList L) {
+//判断单链表是否为空（带头结点）
+bool LinkEmpty(LinkList L) {
     if (L->next == NULL)
         return true;
     else 
@@ -39,24 +34,13 @@ bool Empty(LinkList L) {
 //LinkList   强调这是一个单链表
 //LNode * 和LinkList是等价的，是为了代码可读性才这么做的
 
-//按位取值
+//按位取值（带头结点）
 LNode * GetElem(LinkList L, int i) {
-    // int j = 1;
-    // LNode *p = L->next;
-    // if (i == 0) 
-    //     return L;
-    // if (i < 1) 
-    //     return NULL;
-    // while (p != NULL && j < i) {
-    //     p = p->next;
-    //     j++;
-    // }
-    // return p;
     if (i < 0) 
         return NULL;
-    LNode *p;
+    //p指向头结点，j置0（即头结点的序号为0）
+    LNode *p = L;
     int j = 0;
-    p = L;
     while (p != NULL && j < i) {
         p = p->next;
         j++;
@@ -65,7 +49,7 @@ LNode * GetElem(LinkList L, int i) {
 }
 
 //按值查找
-LNode * LocateElem(LinkList L, int e) {
+LNode * LocateElem(LinkList L, ElemType e) {
     LNode *p = L->next;
     while (p != NULL && p->data != e) {
         p = p->next;
@@ -84,38 +68,9 @@ int Length(LinkList L) {
     return len;
 }
 
-//按位序插入（不带头结点）
-// bool ListInsert(LinkList &L, int i, int e) {
-//     if (i < 1)
-//         return false;
-//     //插入第一个结点的操作与其他结点操作不同
-//     if (i == 1) {
-//         LNode *s = (LNode *) malloc(sizeof(LNode));
-//         s->data = e;
-//         s->next = L;
-//         L = s;
-//         return true;
-//     }
-//     LNode *p;       //指针p指向当前扫描到的结点
-//     int j = 1;          //当前p指向的是第几个结点
-//     p = L;              //L指向头结点，头结点是第0个结点（不含数据）
-//     //循环找到第i - 1个结点
-//     while (p != NULL && j < i - 1) {
-//         p = p->next;
-//         j++;
-//     }
-//     if (p == NULL) 
-//         return false;
-//     LNode *s = (LNode *) malloc(sizeof(LNode));
-//     s->data = e;
-//     s->next = p->next;
-//     p->next = s;
-//     return true;
-// }
-
 //按位序插入（带头结点）
 //在第i个位置插入元素e
-bool ListInsert(LinkList &L, int i, int e) {
+bool ListInsert(LinkList &L, int i, ElemType e) {
     if (i < 1)
         return false;
     LNode *p;       //指针p指向当前扫描到的结点
@@ -136,7 +91,7 @@ bool ListInsert(LinkList &L, int i, int e) {
 }
 
 //后插操作
-bool InsertNextNode(LNode *p, int e) {
+bool InsertNextNode(LNode *p, ElemType e) {
     if (p == NULL)
         return false;
     LNode *s = (LNode *) malloc(sizeof(LNode));
@@ -150,7 +105,7 @@ bool InsertNextNode(LNode *p, int e) {
 }
 
 //前插操作
-bool InsertPriorNode(LNode *p, int e) {
+bool InsertPriorNode(LNode *p, ElemType e) {
     if (p == NULL)
         return false;
     LNode *s = (LNode *) malloc(sizeof(LNode));
@@ -165,7 +120,7 @@ bool InsertPriorNode(LNode *p, int e) {
 }
 
 //按位序删除（带头结点）
-bool ListDelete(LinkList &L, int i, int &e) {
+bool ListDelete(LinkList &L, int i, ElemType &e) {
     if (i < 1)
         return false;
     LNode *p;       //指针p指向当前扫描到的结点
@@ -210,6 +165,7 @@ LinkList List_TailInsert(LinkList &L) {
     L = (LinkList) malloc(sizeof(LNode));
     //r作为表尾指针
     LNode *s, *r = L;
+    printf("输入链表元素(输入9999终止):");
     scanf("%d", &x);
     //输入9999表示结束
     while (x != 9999) {
@@ -232,6 +188,7 @@ LinkList List_HeadInsert(LinkList &L) {
     L = (LinkList) malloc(sizeof(LNode));
     //初始化空链表
     L->next = NULL;
+    printf("输入链表元素(输入9999终止):");
     scanf("%d", &x);
     while (x != 9999) {
         s = (LNode *) malloc(sizeof(LNode));
@@ -258,32 +215,87 @@ LinkList Reverse(LinkList &L) {
 }
 
 void printList(LinkList L) {
-    while (L) {
-        printf("%d ", L->data);
-        L = L->next;
+    LNode *p = L->next;
+    while (p) {
+        printf("%d ", p->data);
+        p = p->next;
     }
 }
+
+/* 
+    单链表实现——不带头结点
+*/
+
+//初始化一个空的单链表（不带头结点）
+// bool InitList(LinkList &L) {
+//     L = NULL;
+//     return true;
+// }
+
+//判断单链表是否为空（不带头结点）
+// bool LinkEmpty(LinkList L) {
+//     return (L == NULL);
+// }
+
+//按位取值（不带头结点）
+// LNode * GetElem(LinkList L, int i) {
+//     int j = 1;
+//     LNode *p = L->next;
+//     if (i == 0) 
+//         return L;
+//     if (i < 1) 
+//         return NULL;
+//     while (p != NULL && j < i) {
+//         p = p->next;
+//         j++;
+//     }
+//     return p;
+// }
+
+//按位序插入（不带头结点）
+// bool ListInsert(LinkList &L, int i, ElemType e) {
+//     if (i < 1)
+//         return false;
+//     //插入第一个结点的操作与其他结点操作不同
+//     if (i == 1) {
+//         LNode *s = (LNode *) malloc(sizeof(LNode));
+//         s->data = e;
+//         s->next = L;
+//         L = s;
+//         return true;
+//     }
+//     LNode *p;       //指针p指向当前扫描到的结点
+//     int j = 1;          //当前p指向的是第几个结点
+//     p = L;              //L指向头结点，头结点是第0个结点（不含数据）
+//     //循环找到第i - 1个结点
+//     while (p != NULL && j < i - 1) {
+//         p = p->next;
+//         j++;
+//     }
+//     if (p == NULL) 
+//         return false;
+//     LNode *s = (LNode *) malloc(sizeof(LNode));
+//     s->data = e;
+//     s->next = p->next;
+//     p->next = s;
+//     return true;
+// }
 
 int main() {
     //声明一个指向单链表的指针
     LinkList L;
     //初始化一个空表
     InitList(L);
-    LinkList A = (LNode *) malloc(sizeof(LNode));
-    LinkList B = (LNode *) malloc(sizeof(LNode));
-    LinkList C = (LNode *) malloc(sizeof(LNode));
-    LinkList D = (LNode *) malloc(sizeof(LNode));
-    A->data = 1;
-    B->data = 2;
-    C->data = 3;
-    D->data = 4;
-    L->next = A;
-    A->next = B;
-    B->next = C;
-    C->next = D;
-    D->next = NULL;
-    printList(L->next);
+    List_TailInsert(L);
+    printList(L);
     printf("\n单链表逆置之后的元素：\n");
     L = Reverse(L);
-    printList(L->next);
+    printList(L);
 }
+
+/* 
+输入链表元素(输入9999终止):78 23 45 6 7 24 89 9999
+78 23 45 6 7 24 89 
+单链表逆置之后的元素：
+89 24 7 6 45 23 78
+*/
