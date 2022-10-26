@@ -201,7 +201,7 @@ LinkList List_HeadInsert(LinkList &L) {
 }
 
 //链表逆置
-LinkList Reverse(LinkList &L) {
+LinkList Reverse(LinkList L) {
     LinkList p,q;
     //初始化
     p = L->next;
@@ -212,6 +212,27 @@ LinkList Reverse(LinkList &L) {
         q->next = L->next;
         L->next = q;
     }
+}
+
+//链表排序
+LinkList Sort(LinkList L) {
+    LNode *p, *q; 
+    p = L->next;
+    q = p->next;
+    while (p->next != NULL) {
+        while (q != NULL) {
+            if (p->data > q->data) {
+                int temp;
+                temp = p->data;
+                p->data = q->data;
+                q->data = temp;
+            }
+            q = q->next;
+        }
+        p = p->next;
+        q = p->next; 
+    }
+    return L;
 }
 
 void printList(LinkList L) {
@@ -285,12 +306,14 @@ int main() {
     //声明一个指向单链表的指针
     LinkList L;
     //初始化一个空表
-    InitList(L);
+    // InitList(L);
     List_TailInsert(L);
     printList(L);
     printf("\n单链表逆置之后的元素：\n");
-    L = Reverse(L);
-    printList(L);
+    // L = Reverse(L);
+    printList(Reverse(L));
+    printf("\n");
+    printList(Sort(L));
 }
 
 /* 
