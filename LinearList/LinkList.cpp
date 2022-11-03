@@ -235,6 +235,57 @@ LinkList Sort(LinkList L) {
     return L;
 }
 
+//两个有序链表求交
+LinkList Intersection(LinkList L1, LinkList L2) {
+    LinkList L3;
+    InitList(L3);
+    LNode *p, *q, *r, *s;
+    p = L1->next;
+    q = L2->next;
+    r = L3;
+    while (p != NULL && q != NULL) {
+        if (p->data == q->data) {
+            r->next = p;
+            r = r->next;
+            p = p->next;
+            q = q->next;
+        }
+        else if (p->data < q->data) {
+            p = p->next;
+        }
+        else {
+            q = q->next;
+        }
+    }
+    r->next = NULL;
+    return L3;
+}
+
+//两个无序链表求交
+LinkList unorder_Intersection(LinkList L1, LinkList L2) {
+    LinkList L3;
+    InitList(L3);
+    LNode *p, *q, *r, *s;
+    p = L1->next;
+    q = L2->next;
+    r = q;
+    s = L3;
+    while (p != NULL) {
+        while (q != NULL) {
+            if (p->data == q->data) {
+                s->next = p;
+                s = s->next;
+            }
+            q = q->next;
+        }
+        p = p->next;
+        q = r;
+    }
+    s->next = NULL;
+    L3 = Sort(L3);
+    return L3;
+}
+
 void printList(LinkList L) {
     LNode *p = L->next;
     while (p) {
@@ -312,8 +363,22 @@ int main() {
     printf("\n单链表逆置之后的元素：\n");
     // L = Reverse(L);
     printList(Reverse(L));
-    printf("\n");
+    printf("\n单链表排序之后的元素：\n");
     printList(Sort(L));
+
+    //有序链表求交的操作
+    LinkList L1, L2;
+    List_TailInsert(L1);
+    List_TailInsert(L2);
+    LinkList L3 = Intersection(L1, L2);
+    printList(L3);
+
+    //无序链表求交的操作
+    LinkList L4, L5;
+    List_TailInsert(L3);
+    List_TailInsert(L4);
+    LinkList L6 = unorder_Intersection(L4, L5);
+    printList(L6);
 }
 
 /* 
@@ -321,4 +386,14 @@ int main() {
 78 23 45 6 7 24 89 
 单链表逆置之后的元素：
 89 24 7 6 45 23 78
+
+有序链表求交的操作
+输入链表元素(输入9999终止):1 3 4 9999
+输入链表元素(输入9999终止):2 3 5 9999
+3
+
+无序链表求交的操作
+输入链表元素(输入9999终止):1 5 8 3 9999
+输入链表元素(输入9999终止):8 3 1 9999
+1 3 8 
 */
