@@ -25,7 +25,7 @@ typedef struct VNode {  //顶点表结点
 //邻接表
 typedef struct {
     VNode adjlist[MaxVertexNum];  //邻接表的头结点数组
-    int vexnum, edgenum;          //图中的顶点数和边数
+    int vexnum, arcnum;           //图中的顶点数和边数
 } ALGraph;                        //ALGraph是以邻接表存储的图类型
 
 //初始化
@@ -35,7 +35,7 @@ void InitALG(ALGraph &G) {
         G.adjlist[i].first = NULL;
     }
     G.vexnum = 0;
-    G.edgenum = 0;
+    G.arcnum = 0;
 }
 
 //创建顶点信息，输入示例：ABCDEF#
@@ -367,7 +367,7 @@ int main() {
 
     CountDegree(G);
     printf("\n");
-    printf("\n无向图G中顶点数为: %d, 边数为: %d\n", G.vexnum, G.edgenum);
+    printf("\n无向图G中顶点数为: %d, 边数为: %d\n", G.vexnum, G.arcnum);
 
     VertexType x, y;
 
